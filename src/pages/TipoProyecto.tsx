@@ -1,0 +1,12 @@
+import CompleteCrud from "../components/CompleteCrud";
+import type { Enumerador } from "../types/models";
+
+const initialProyect: Enumerador = {
+    id: 0,
+    nombre: "",
+    descripcion: ""
+  };
+
+export default function TipoProyecto() {
+  return <CompleteCrud<Enumerador> table="tipo_proyecto" initialItem={initialProyect}></CompleteCrud>
+}

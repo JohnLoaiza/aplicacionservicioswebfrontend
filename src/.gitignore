@@ -1,0 +1,49 @@
+# === Dependencias ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# === Builds y producción ===
+dist/
+build/
+coverage/
+
+# === Archivos de entorno ===
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# === Archivos del editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === Archivos del sistema ===
+.DS_Store
+Thumbs.db
+
+# === Cache y temporal ===
+*.log
+*.tmp
+*.temp
+.cache/
+.eslintcache
+
+# === Tests ===
+jest-test-results.json
+coverage/
+.vitest/
+
+# === Tipos de configuración ===
+tsconfig.tsbuildinfo
+
+# === Otros ===
+*.local
+*.bak
+*.orig
