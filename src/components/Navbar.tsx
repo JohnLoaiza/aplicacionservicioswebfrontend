@@ -7,7 +7,7 @@ export default function Navbar() {
       <Link to="/tipo-proyecto">Tipo Proyecto</Link>
       <Link to="/tipo-responsable">Tipo Responsable</Link>
       <Link to="/estado">Estado</Link>
-      <Link to="/persona">Persona</Link>
+      <Link to="/usuarios">Usuarios</Link>
       <Link to="/transformacion-institucional">
         Transformación Institucional
       </Link>

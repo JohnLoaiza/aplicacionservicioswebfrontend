@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { AppRoutes } from "../router/routes"; // Importamos las rutas
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -7,27 +8,27 @@ const Dashboard = () => {
     {
       title: "Tipos de Proyecto",
       description: "Catálogo de categorías de proyectos (estratégico, gestión, etc.)",
-      path: "/tipo-proyecto",
+      path: AppRoutes.TipoProyecto,
     },
     {
       title: "Tipos de Responsable",
       description: "Catálogo de roles posibles (gerente, líder, miembro, etc.)",
-      path: "/tipo-responsable",
+      path: AppRoutes.TipoResponsable,
     },
     {
       title: "Estados",
       description: "Catálogo de estados de avance de los proyectos",
-      path: "/estado",
+      path: AppRoutes.Estado,
     },
     {
-      title: "Personas",
+      title: "Usuarios",
       description: "Información base de las personas que participan en los proyectos",
-      path: "/persona",
+      path: AppRoutes.Usuarios,
     },
     {
       title: "Transformaciones Institucionales",
       description: "Iniciativas mayores que agrupan proyectos estratégicos",
-      path: "/transformacion-institucional",
+      path: AppRoutes.TransformacionInstitucional,
     },
   ];
 

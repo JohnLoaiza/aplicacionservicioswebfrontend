@@ -1,7 +1,7 @@
 import CompleteCrud from "../components/CompleteCrud";
-import type { Persona } from "../types/models";
+import type { Usuario } from "../types/models";
 
- const initialPersona: Persona = {
+ const initialPersona: Usuario = {
     id: 0,
     nombre: "",
     identificacion: "",
@@ -11,6 +11,6 @@ import type { Persona } from "../types/models";
   };
 
 export default function Persona() {
-  return <CompleteCrud<Persona> table="persona" initialItem={initialPersona}></CompleteCrud>
+  return <CompleteCrud<Usuario> table="usuarios" initialItem={initialPersona}></CompleteCrud>
 }
 

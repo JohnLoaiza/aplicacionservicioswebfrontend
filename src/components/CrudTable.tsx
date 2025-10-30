@@ -1,10 +1,10 @@
-interface CrudTableProps {
+interface CrudTableProps<T> {
   data: any[];
-  onEdit: (item: any) => void;
+  onEdit: (item: T) => void;
   onDelete: (id: number) => void;
 }
 
-export default function CrudTable({ data, onEdit, onDelete }: CrudTableProps) {
+export default function CrudTable<T>({ data, onEdit, onDelete }: CrudTableProps<T>) {
 
   const columns = Object.keys(data[0]);
 

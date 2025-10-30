@@ -30,6 +30,16 @@ export async function createItem(table: string, data: any) {
   }
 }
 
+export async function getItem(table: string, id: number, data: any) {
+  try {
+    const response = await axios.get(`${API_URL}/api/${table}/id/${id}?esquema=public`, data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error al actualizar en ${table}:`, error);
+    throw error;
+  }
+}
+
 // 🔹 Actualizar un registro existente
 export async function updateItem(table: string, id: number, data: any) {
   try {

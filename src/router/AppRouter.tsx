@@ -6,6 +6,8 @@ import Estado from "../pages/Estado";
 import Persona from "../pages/Persona";
 import TransformacionInstitucional from "../pages/TransformacionInstitucional";
 import "../styles/layout.css";
+import { AppRoutes } from "./routes";
+import Proyecto from "../pages/Proyecto";
 
 export const AppRouter = () => {
   return (
@@ -15,12 +17,13 @@ export const AppRouter = () => {
         <aside className="sidebar">
           <h2 className="logo">Gestor</h2>
           <nav className="nav-links">
-            <NavLink to="/" end>Inicio</NavLink>
-            <NavLink to="/tipo-proyecto">Tipo Proyecto</NavLink>
-            <NavLink to="/tipo-responsable">Tipo Responsable</NavLink>
-            <NavLink to="/estado">Estado</NavLink>
-            <NavLink to="/persona">Persona</NavLink>
-            <NavLink to="/transformacion-institucional">
+            <NavLink to={AppRoutes.Dashboard} end>Inicio</NavLink>
+            <NavLink to={AppRoutes.Proyecto} end>Proyectos</NavLink>
+            <NavLink to={AppRoutes.TipoProyecto}>Tipo Proyecto</NavLink>
+            <NavLink to={AppRoutes.TipoResponsable}>Tipo Responsable</NavLink>
+            <NavLink to={AppRoutes.Estado}>Estado</NavLink>
+            <NavLink to={AppRoutes.Usuarios}>Usuarios</NavLink>
+            <NavLink to={AppRoutes.TransformacionInstitucional}>
               Transformación Institucional
             </NavLink>
           </nav>
@@ -29,13 +32,14 @@ export const AppRouter = () => {
         {/* Contenido principal */}
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/tipo-proyecto" element={<TipoProyecto />} />
-            <Route path="/tipo-responsable" element={<TipoResponsable />} />
-            <Route path="/estado" element={<Estado />} />
-            <Route path="/persona" element={<Persona />} />
+            <Route path={AppRoutes.Dashboard} element={<Dashboard />} />
+            <Route path={AppRoutes.Proyecto} element={<Proyecto />} />
+            <Route path={AppRoutes.TipoProyecto} element={<TipoProyecto />} />
+            <Route path={AppRoutes.TipoResponsable} element={<TipoResponsable />} />
+            <Route path={AppRoutes.Estado} element={<Estado />} />
+            <Route path={AppRoutes.Usuarios} element={<Persona />} />
             <Route
-              path="/transformacion-institucional"
+              path={AppRoutes.TransformacionInstitucional}
               element={<TransformacionInstitucional />}
             />
           </Routes>

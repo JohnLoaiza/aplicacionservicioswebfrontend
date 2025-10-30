@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 import * as api from "../services/api";
 import CrudTable from "../components/CrudTable";
 import CrudForm from "../components/CrudForm";
@@ -6,9 +6,11 @@ import CrudForm from "../components/CrudForm";
 type CompleteCrudProps<T> = {
   table: string;
   initialItem: T;
+  onEdit?: (item: T) => void;
+  createComponent?: JSX.Element
 };
 
-export default function CompleteCrud<T>({ table, initialItem }: CompleteCrudProps<T>) {
+export default function CompleteCrud<T>({ table, initialItem, onEdit, createComponent }: CompleteCrudProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [item, setItem] = useState<T>(initialItem);
   const [editId, setEditId] = useState<number | null>(null);
@@ -33,10 +35,15 @@ export default function CompleteCrud<T>({ table, initialItem }: CompleteCrudProp
     fetchData();
   };
 
-  const handleEdit = (row: any) => {
-    setEditId((row as any).id);
-    setItem(row);
-    setShowForm(true);
+  const handleEdit = (row: T) => {
+
+    if (typeof onEdit === "function") {
+      onEdit(row)
+    } else {
+      setEditId((row as any).id);
+      setItem(row);
+      setShowForm(true);
+    }
   };
 
   const handleDelete = async (id: number) => {
@@ -50,7 +57,7 @@ export default function CompleteCrud<T>({ table, initialItem }: CompleteCrudProp
   };
 
   return (
-    <div className="main-container">
+    <>{showForm && createComponent ? createComponent : <div className="main-container">
       <div className="header-section">
         <h2>Gestión de {table}'s</h2>
         <button className="btn-add" onClick={() => setShowForm(true)}>
@@ -61,7 +68,7 @@ export default function CompleteCrud<T>({ table, initialItem }: CompleteCrudProp
       {data.length === 0 ? (
         <p className="text-center mt-4 text-gray-500">Sin registros</p>
       ) : (
-        <CrudTable data={data} onEdit={handleEdit} onDelete={handleDelete} />
+        <CrudTable<T> data={data} onEdit={handleEdit} onDelete={handleDelete} />
       )}
 
       {showForm && (
@@ -78,6 +85,7 @@ export default function CompleteCrud<T>({ table, initialItem }: CompleteCrudProp
           </div>
         </div>
       )}
-    </div>
+    </div>}</>
+    
   );
 }
