@@ -2,15 +2,17 @@ import { useEffect, useState, type JSX } from "react";
 import * as api from "../services/api";
 import CrudTable from "../components/CrudTable";
 import CrudForm from "../components/CrudForm";
+import type { TableFilter } from "../types/Utils";
 
 type CompleteCrudProps<T> = {
   table: string;
   initialItem: T;
   Editcomponent?: (item: T) => JSX.Element;
-  createComponent?: JSX.Element
+  createComponent?: JSX.Element,
+  filter?: TableFilter
 };
 
-export default function CompleteCrud<T>({ table, initialItem, Editcomponent, createComponent }: CompleteCrudProps<T>) {
+export default function CompleteCrud<T extends Record<string, any>>({ table, initialItem, Editcomponent, createComponent, filter }: CompleteCrudProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [item, setItem] = useState<T>(initialItem);
   const [editId, setEditId] = useState<number | null>(null);
@@ -64,7 +66,7 @@ export default function CompleteCrud<T>({ table, initialItem, Editcomponent, cre
       {data.length === 0 ? (
         <p className="text-center mt-4 text-gray-500">Sin registros</p>
       ) : (
-        <CrudTable<T> data={data} onEdit={handleEdit} onDelete={handleDelete} />
+        <CrudTable<T> filter={filter} data={data} onEdit={handleEdit} onDelete={handleDelete} />
       )}
 
       {showForm && (

@@ -213,7 +213,7 @@ const ProyectoForm = () => {
           </option>
         ))}
       </select>
-
+{/*
       <select
         value={formData.p_IdPresupuestoPadre || ""}
         onChange={(e) => handleChange("p_IdPresupuestoPadre", e.target.value ? Number(e.target.value) : null)}
@@ -226,6 +226,7 @@ const ProyectoForm = () => {
           </option>
         ))}
       </select>
+      */}
 
       <select
         value={formData.p_IdUsuario || ""}

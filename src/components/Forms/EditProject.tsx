@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import type { MetaEstrategica, MetaProyecto, ObjetivoEstrategico, Presupuesto, Proyecto } from "../../types/models";
 import * as api from "../../services/api";
 import ObjectDetail from "../ObjectDetail";
+import CrudTable from "../CrudTable";
+import CompleteCrud from "../CompleteCrud";
+import ProyectoForm from "./CreateProyectForm";
 
 type EditProjectProps = {
   proyecto: Proyecto;
@@ -21,12 +24,22 @@ var initialObjetivo : ObjetivoEstrategico = {
   descripcion: ""
 }
 
+var initialPresupuesto : Presupuesto = {
+  Estado: "",
+  FechaAprobacion: "",
+  FechaSolicitud: "",
+  Id: 0, 
+  IdProyecto: 0,
+  MontoAprobado: 0, 
+  MontoSolicitado: 0,
+  Observaciones: "",
+  PeriodoAnio: 2
+}
+
 const EditProject = ({ proyecto }: EditProjectProps) => {
 
   const [metaProyecto, setMetaProyecto] = useState<MetaProyecto>();
   const [metaEstrategica, setMetaEstrategica] = useState<MetaEstrategica>();
-
-  console.log(proyecto)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,7 +118,7 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
         <div style={styles.card}>
           <h2 style={styles.title}>Cuadrante 2</h2>
           <p style={styles.text}>Contenido del segundo cuadrante.</p>
-          {metaProyecto && <ObjectDetail<MetaEstrategica> id={proyecto.id} table="presupuesto" initialItem={initialMetaProyecto} findBycolumn="idproyecto" ></ObjectDetail>}
+          {metaProyecto && <ObjectDetail<Presupuesto> id={proyecto.id} table="presupuesto" initialItem={initialPresupuesto} findBycolumn="idproyecto" ></ObjectDetail>}
         </div>
 
         <div style={styles.card}>
@@ -114,9 +127,19 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
           {proyecto && <ObjectDetail<Proyecto> id={proyecto.id} table="proyecto" initialItem={proyecto} ></ObjectDetail>}
         </div>
 
-        <div style={styles.card}>
+        <div style={styles.card}> 
           <h2 style={styles.title}>Cuadrante 4</h2>
           <p style={styles.text}>Contenido del cuarto cuadrante.</p>
+          {<CompleteCrud<Proyecto>
+            table="proyecto"
+            initialItem={proyecto}
+            createComponent={<ProyectoForm></ProyectoForm>}
+            filter={{column: "idproyectopadre", value: proyecto.id}}
+            Editcomponent={(proyecto) => (
+        <EditProject proyecto={proyecto}></EditProject>
+      )}
+
+    ></CompleteCrud>}
         </div>
       </div>
     </div>
