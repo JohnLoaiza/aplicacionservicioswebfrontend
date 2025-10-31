@@ -133,7 +133,7 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
           {<CompleteCrud<Proyecto>
             table="proyecto"
             initialItem={proyecto}
-            createComponent={<ProyectoForm></ProyectoForm>}
+            createComponent={<ProyectoForm filter={{column: "idproyectopadre", value: proyecto.id}}></ProyectoForm>}
             filter={{column: "idproyectopadre", value: proyecto.id}}
             Editcomponent={(proyecto) => (
         <EditProject proyecto={proyecto}></EditProject>

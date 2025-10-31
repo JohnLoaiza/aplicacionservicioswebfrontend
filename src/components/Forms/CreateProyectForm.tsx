@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import * as api from "../../services/api";
+import type { TableFilter } from "../../types/Utils";
 
 const API_URL = "https://localhost:7256";
 
@@ -32,8 +33,11 @@ interface ProyectoFormData {
   p_IdUsuario: number
 }
 
+type ProyectoFormProps = {
+  filter?: TableFilter;
+};
 
-const ProyectoForm = () => {
+const ProyectoForm = ({filter} : ProyectoFormProps) => {
   const [formData, setFormData] = useState<ProyectoFormData>({
     p_Codigo: "",
     p_Titulo: "",
@@ -109,15 +113,25 @@ const ProyectoForm = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log("filter es");
+    console.log(filter);
+    console.log("form data es");
+    console.log(formData);
+    console.log("datasend es");
+  
+    
+    var dataSend = filter ?  { ...formData, p_IdProyectoPadre: filter.value } : formData;
+
+    console.log(dataSend)
     e.preventDefault();
     try {
       await axios.post(`${API_URL}/api/procedimientos/ejecutarsp`, {
         nombreSP: "crear_proyecto_completo",
-        ...formData,
+        ...dataSend,
       });
       alert("Proyecto creado correctamente");
 
-      window.location.reload();
+     window.location.reload();
       // Reset si quieres
       setFormData({
         p_Codigo: "",
@@ -188,7 +202,7 @@ const ProyectoForm = () => {
       />
 
       {/* Selects */}
-      <select
+     { filter ? <></> : <select
         value={formData.p_IdProyectoPadre || ""}
         onChange={(e) => handleChange("p_IdProyectoPadre", e.target.value ? Number(e.target.value) : null)}
         className="input"
@@ -200,7 +214,7 @@ const ProyectoForm = () => {
           </option>
         ))}
       </select>
-
+      }
       <select
         value={formData.p_IdTipoProyecto || ""}
         onChange={(e) => handleChange("p_IdTipoProyecto", e.target.value ? Number(e.target.value) : null)}

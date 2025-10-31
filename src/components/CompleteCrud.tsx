@@ -28,8 +28,17 @@ export default function CompleteCrud<T extends Record<string, any>>({ table, ini
   };
 
   const handleSubmit = async () => {
-    if (editId) await api.updateItem(table, editId, item);
-    else await api.createItem(table, item);
+    // Creamos una copia segura del item
+  const itemToSend = { ...item };
+
+  // Si hay filtro, lo aplicamos en la copia
+  if (filter) {
+    (itemToSend as any)[filter.column] = filter.value;
+  }
+
+  // Enviamos la copia actualizada
+  if (editId) await api.updateItem(table, editId, itemToSend);
+  else await api.createItem(table, itemToSend);
 
     setItem(item);
     setEditId(null);
