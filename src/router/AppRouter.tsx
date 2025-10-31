@@ -23,9 +23,6 @@ export const AppRouter = () => {
             <NavLink to={AppRoutes.TipoResponsable}>Tipo Responsable</NavLink>
             <NavLink to={AppRoutes.Estado}>Estado</NavLink>
             <NavLink to={AppRoutes.Usuarios}>Usuarios</NavLink>
-            <NavLink to={AppRoutes.TransformacionInstitucional}>
-              Transformación Institucional
-            </NavLink>
           </nav>
         </aside>
 
@@ -38,10 +35,6 @@ export const AppRouter = () => {
             <Route path={AppRoutes.TipoResponsable} element={<TipoResponsable />} />
             <Route path={AppRoutes.Estado} element={<Estado />} />
             <Route path={AppRoutes.Usuarios} element={<Persona />} />
-            <Route
-              path={AppRoutes.TransformacionInstitucional}
-              element={<TransformacionInstitucional />}
-            />
           </Routes>
         </main>
       </div>

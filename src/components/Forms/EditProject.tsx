@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import type { MetaEstrategica, MetaProyecto, ObjetivoEstrategico, Presupuesto, Proyecto } from "../../types/models";
+import type { Entregable, MetaEstrategica, MetaProyecto, ObjetivoEstrategico, Presupuesto, Producto, Proyecto } from "../../types/models";
 import * as api from "../../services/api";
 import ObjectDetail from "../ObjectDetail";
 import CrudTable from "../CrudTable";
@@ -36,10 +36,36 @@ var initialPresupuesto : Presupuesto = {
   PeriodoAnio: 2
 }
 
+export const initialEntregable: Entregable = {
+  id: 0,
+  codigo: "",
+  titulo: "",
+  descripcion: "",
+  fecha_inicio: null,
+  fecha_fin_prevista: null,
+  fecha_modificacion: null,
+  fecha_finalizacion: null,
+};
+
+export const initialProducto: Producto = {
+  id: 0,
+  id_tipo_producto: 0,
+  codigo: "",
+  titulo: "",
+  descripcion: "",
+  fecha_inicio: "",
+  fecha_fin_prevista: "",
+  fecha_modificacion: "",
+  fecha_finalizacion: "",
+  rutalogo: "",
+};
+
 const EditProject = ({ proyecto }: EditProjectProps) => {
 
   const [metaProyecto, setMetaProyecto] = useState<MetaProyecto>();
   const [metaEstrategica, setMetaEstrategica] = useState<MetaEstrategica>();
+  const [proyectoPadre, setProyectoPadre] = useState<Proyecto>();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,29 +133,23 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
     <div style={styles.container}>
       <div style={styles.grid}>
         <div style={styles.card}>
-          <h2 style={styles.title}>Cuadrante 1</h2>
+          {proyecto && <ObjectDetail<Proyecto> id={proyecto.id} table="proyecto" initialItem={proyecto} nonEditableColumns={["idproyectopadre", "idresponsable", "idtipoproyecto", "fechainicio"]} ></ObjectDetail>}
+        </div>
+        <div style={styles.card}>
+          <h2 style={styles.title}>Meta y objetivo</h2>
           <p style={styles.text}>
-            Contenido del primer cuadrante. {proyecto.idresponsable}
-           {metaProyecto && <ObjectDetail<MetaEstrategica> id={metaProyecto.idmeta} table="metaestrategica" initialItem={initialMetaProyecto} nonEditableColumns={["idobjetivo"]}></ObjectDetail>}
-           {metaEstrategica && <ObjectDetail<ObjetivoEstrategico> id={metaEstrategica?.idobjetivo} table="objetivoestrategico" initialItem={initialObjetivo}></ObjectDetail>}
+           {metaProyecto && <ObjectDetail<MetaEstrategica> id={metaProyecto.idmeta} table="metaestrategica" initialItem={initialMetaProyecto} nonEditableColumns={["idobjetivo"]} ></ObjectDetail>}
+           {metaEstrategica && <ObjectDetail<ObjetivoEstrategico> id={metaEstrategica?.idobjetivo} table="objetivoestrategico" initialItem={initialObjetivo} hiddenColumns={["idvariable"]}></ObjectDetail>}
           </p>
         </div>
 
         <div style={styles.card}>
-          <h2 style={styles.title}>Cuadrante 2</h2>
-          <p style={styles.text}>Contenido del segundo cuadrante.</p>
-          {metaProyecto && <ObjectDetail<Presupuesto> id={proyecto.id} table="presupuesto" initialItem={initialPresupuesto} findBycolumn="idproyecto" ></ObjectDetail>}
+          {metaProyecto && <ObjectDetail<Presupuesto> id={proyecto.id} table="presupuesto" initialItem={initialPresupuesto} findBycolumn="idproyecto" nonEditableColumns={["idproyecto"]} ></ObjectDetail>}
         </div>
-
-        <div style={styles.card}>
-          <h2 style={styles.title}>Cuadrante 3</h2>
-          <p style={styles.text}>Contenido del tercer cuadrante.</p>
-          {proyecto && <ObjectDetail<Proyecto> id={proyecto.id} table="proyecto" initialItem={proyecto} ></ObjectDetail>}
-        </div>
-
         <div style={styles.card}> 
-          <h2 style={styles.title}>Cuadrante 4</h2>
-          <p style={styles.text}>Contenido del cuarto cuadrante.</p>
+        { proyecto.idproyectopadre && <h2 style={styles.title}>Proyecto padre</h2>}
+          {proyecto.idproyectopadre && <ObjectDetail<Proyecto> id={proyecto.idproyectopadre} table="proyecto" initialItem={proyecto} nonEditableColumns={["idproyectopadre", "idresponsable", "idtipoproyecto", "fechainicio"]} ></ObjectDetail>}
+<h2 style={styles.title}>Micro proyectos</h2>
           {<CompleteCrud<Proyecto>
             table="proyecto"
             initialItem={proyecto}
@@ -139,6 +159,13 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
         <EditProject proyecto={proyecto}></EditProject>
       )}
 
+    ></CompleteCrud>}
+        </div>
+       <div style={styles.card}> 
+          {<CompleteCrud<Producto>
+            table="producto"
+            initialItem={initialProducto}
+            filter={{column: "idproyecto", value: proyecto.id}}
     ></CompleteCrud>}
         </div>
       </div>
@@ -165,16 +192,23 @@ const styles: Record<string, React.CSSProperties> = {
     height: "100%",
     maxWidth: "1400px",
   },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: "15px",
-    padding: "20px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-    transition: "transform 0.2s ease, box-shadow 0.2s ease",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
+     card: {
+  backgroundColor: "#fff",
+  borderRadius: "15px",
+  padding: "20px",
+  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+  transition: "transform 0.2s ease, box-shadow 0.2s ease",
+  //display: "flex",
+  //flexDirection: "column",
+  justifyContent: "flex-start",
+  overflowX: "auto",
+  overflowY: "auto",
+  //maxHeight: "100%",
+  //width: "100%",
+  //minWidth: "400px",   // 🆕 ancho mínimo para evitar que se achique demasiado
+  minHeight: "450px",  // 🆕 alto mínimo para mantener proporción visual
+  //boxSizing: "border-box",
+},
   title: {
     fontSize: "20px",
     fontWeight: 600,

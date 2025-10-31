@@ -6,7 +6,8 @@ type ObjectDetailProps<T extends Record<string, any>> = {
   id: any;
   initialItem: T;
   findBycolumn?: string;
-  nonEditableColumns?: string[]; // 🆕 columnas no editables
+  nonEditableColumns?: string[]; // columnas no editables
+  hiddenColumns?: string[]; // 🆕 columnas ocultas
 };
 
 export default function ObjectDetail<T extends Record<string, any>>({
@@ -14,7 +15,8 @@ export default function ObjectDetail<T extends Record<string, any>>({
   id,
   initialItem,
   findBycolumn,
-  nonEditableColumns = [], // valor por defecto vacío
+  nonEditableColumns = [],
+  hiddenColumns = [], // valor por defecto vacío
 }: ObjectDetailProps<T>) {
   const [item, setItem] = useState<T>(initialItem);
   const [isEditing, setIsEditing] = useState(false);
@@ -59,36 +61,43 @@ export default function ObjectDetail<T extends Record<string, any>>({
       {/* Vista de solo lectura */}
       {!isEditing ? (
         <div className="detail-view">
-          {Object.entries(item).map(([key, value]) => (
-            <div key={key} className="detail-row">
-              <strong>{key}:</strong> <span>{String(value ?? "—")}</span>
-            </div>
-          ))}
+          {Object.entries(item)
+            .filter(([key]) => !hiddenColumns.includes(key)) // 🧱 omite columnas ocultas
+            .map(([key, value]) => (
+              <div key={key} className="detail-row">
+                <strong>{key}:</strong> <span>{String(value ?? "—")}</span>
+              </div>
+            ))}
         </div>
       ) : (
-        /* Vista de edición estandarizada */
+        /* Vista de edición */
         <div className="edit-view">
-          {Object.entries(item).map(([key, value]) => {
-            const type = detectInputType(value);
-            const isNonEditable =
-              key === "id" || nonEditableColumns.includes(key); // 🧱 chequeo de columnas no editables
+          {Object.entries(item)
+            .filter(([key]) => !hiddenColumns.includes(key)) // 🧱 omite columnas ocultas
+            .map(([key, value]) => {
+              const type = detectInputType(value);
+              const isNonEditable =
+                key === "id" || nonEditableColumns.includes(key);
 
-            return (
-              <div key={key} className="form-group">
-                <label className="form-label">{key}</label>
-                <input
-                  className="form-input"
-                  type={type}
-                  value={String(value ?? "")}
-                  disabled={isNonEditable}
-                  onChange={(e) =>
-                    !isNonEditable &&
-                    handleChange(key as keyof T, parseValue(type, e.target.value) as any)
-                  }
-                />
-              </div>
-            );
-          })}
+              return (
+                <div key={key} className="form-group">
+                  <label className="form-label">{key}</label>
+                  <input
+                    className="form-input"
+                    type={type}
+                    value={String(value ?? "")}
+                    disabled={isNonEditable}
+                    onChange={(e) =>
+                      !isNonEditable &&
+                      handleChange(
+                        key as keyof T,
+                        parseValue(type, e.target.value) as any
+                      )
+                    }
+                  />
+                </div>
+              );
+            })}
 
           <button className="btn-save" onClick={handleSubmit}>
             Guardar cambios

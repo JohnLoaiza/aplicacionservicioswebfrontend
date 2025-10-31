@@ -8,5 +8,5 @@ const initialProyect: Enumerador = {
   };
 
 export default function TipoResponsable() {
-  return <CompleteCrud<Enumerador> table="tipo_responsable" initialItem={initialProyect}></CompleteCrud>
+  return <CompleteCrud<Enumerador> table="tiporesponsable" initialItem={initialProyect}></CompleteCrud>
 }

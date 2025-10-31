@@ -1,4 +1,3 @@
-
 interface CrudFormProps<T> {
   item: T;
   onChange: <K extends keyof T>(key: K, value: T[K]) => void;
@@ -10,17 +9,31 @@ export default function CrudForm<T>({ item, onChange, onSubmit }: CrudFormProps<
 
   return (
     <div className="mt-4 bg-gray-50 p-4 rounded-xl">
-      {keys.map((key) => (
-        <div key={key} className="mb-2">
-          <label className="block text-sm font-medium capitalize">{key}</label>
-          <input
-            type="text"
-            value={String(item[key as keyof T] ?? "")}
-            onChange={(e) => onChange(key as keyof T, e.target.value as T[keyof T])}
-            className="border p-2 w-full rounded"
-          />
-        </div>
-      ))}
+      {keys.map((key) => {
+        const value = item[key as keyof T];
+        const isFecha = key.toLowerCase().includes("fecha"); // 🔍 detecta si el nombre contiene "fecha"
+
+        return (
+          <div key={key} className="mb-3">
+            <label className="block text-sm font-medium capitalize mb-1">{key}</label>
+            <input
+              type={isFecha ? "date" : "text"} // 🗓️ usa "date" si contiene "fecha"
+              value={
+                isFecha && value
+                  ? String(value).split("T")[0] // evita mostrar hora si viene en formato timestamp
+                  : String(value ?? "")
+              }
+              onChange={(e) =>
+                onChange(
+                  key as keyof T,
+                  (isFecha ? (e.target.value as unknown as Date) : e.target.value) as T[keyof T]
+                )
+              }
+              className="border p-2 w-full rounded"
+            />
+          </div>
+        );
+      })}
 
       <button
         onClick={onSubmit}

@@ -60,3 +60,27 @@ export interface Presupuesto {
   FechaAprobacion: string | null;  // formato ISO (YYYY-MM-DD)
   Observaciones: string | null;
 }
+
+export type Entregable = {
+  id: number;
+  codigo: string;
+  titulo: string;
+  descripcion: string;
+  fecha_inicio: string | null;        // formato 'YYYY-MM-DD'
+  fecha_fin_prevista: string | null;  // formato 'YYYY-MM-DD'
+  fecha_modificacion: string | null;  // formato ISO con hora
+  fecha_finalizacion: string | null;  // formato 'YYYY-MM-DD'
+};
+
+export interface Producto {
+  id: number;
+  id_tipo_producto: number;
+  codigo: string;
+  titulo: string;
+  descripcion: string;
+  fecha_inicio: string;          // formato YYYY-MM-DD
+  fecha_fin_prevista: string;    // formato YYYY-MM-DD
+  fecha_modificacion: string;    // formato timestamp
+  fecha_finalizacion: string;    // formato YYYY-MM-DD
+  rutalogo: string;
+}
