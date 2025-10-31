@@ -30,13 +30,23 @@ export async function createItem(table: string, data: any) {
   }
 }
 
-export async function getItem(table: string, id: number, data: any) {
+export async function getItem(table: string, id: number) {
   try {
-    const response = await axios.get(`${API_URL}/api/${table}/id/${id}?esquema=public`, data);
+    const response = await axios.get(`${API_URL}/api/${table}/id/${id}?esquema=public`);
     return response.data;
   } catch (error) {
     console.error(`Error al actualizar en ${table}:`, error);
     throw error;
+  }
+}
+
+export async function getItemByColumn(table: string, column: string, id: number) {
+  try {
+    const response = await axios.get(`${API_URL}/api/${table}/${column}/${id}?esquema=public`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error al actualizar en ${table}:`, error);
+    return null;
   }
 }
 

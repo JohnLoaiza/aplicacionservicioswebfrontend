@@ -1,19 +1,23 @@
-/* index.css */
+/* ==========================
+   🧱 REGLAS GLOBALES
+========================== */
 body {
   margin: 0;
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background-color: #f4f6f8;
+  background-color: #f5f7fa;
   color: #333;
 }
 
-/* Barra de navegación */
+/* ==========================
+   🔵 NAVEGACIÓN SUPERIOR
+========================== */
 nav {
   background-color: #1976d2;
   color: white;
   padding: 12px 20px;
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 20px;
 }
 
 nav a {
@@ -27,62 +31,31 @@ nav a:hover {
   opacity: 0.7;
 }
 
-/* Contenedor principal */
+/* ==========================
+   📦 CONTENEDOR PRINCIPAL (GENÉRICO)
+========================== */
 .container {
-  max-width: 1100px;
+  max-width: 900px;
   margin: 40px auto;
   background: white;
   padding: 24px;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos de tabla */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  background-color: #1976d2;
-  color: white;
-}
-
-button {
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-button:hover {
-  background-color: #125ca1;
-}
-
-body {
-  margin: 0;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
-}
-
-/* Layout general */
+/* ==========================
+   🧭 LAYOUT GENERAL
+========================== */
 .layout {
   display: flex;
   min-height: 100vh;
+  background-color: #f4f6f8;
+  overflow: hidden;
 }
 
-/* Sidebar */
+/* ==========================
+   📚 SIDEBAR
+========================== */
 .sidebar {
   width: 230px;
   background-color: #1976d2;
@@ -118,22 +91,28 @@ body {
   background-color: #125ca1;
 }
 
-/* Contenido principal */
+/* ==========================
+   🧩 CONTENIDO PRINCIPAL
+========================== */
 .main-content {
   flex: 1;
+  width: 100vw;
   padding: 30px;
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center;     /* Centrar verticalmente */
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-  background: white;
-  padding: 24px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.main-content > * {
+  max-width: 1500px;
+  width: 100%;
 }
 
-/* Formularios */
+/* ==========================
+   🧾 FORMULARIOS
+========================== */
 form {
   display: flex;
   flex-direction: column;
@@ -149,6 +128,9 @@ textarea {
   width: 100%;
 }
 
+/* ==========================
+   🟦 BOTONES
+========================== */
 button {
   background-color: #1976d2;
   color: white;
@@ -164,7 +146,9 @@ button:hover {
   background-color: #125ca1;
 }
 
-/* Tablas */
+/* ==========================
+   📊 TABLAS
+========================== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -173,7 +157,7 @@ table {
 
 th,
 td {
-  padding: 10px;
+  padding: 10px 12px;
   border-bottom: 1px solid #ddd;
   text-align: left;
 }
@@ -181,4 +165,29 @@ td {
 th {
   background-color: #1976d2;
   color: white;
+}
+
+/* ==========================
+   📱 RESPONSIVIDAD
+========================== */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .main-content {
+    padding: 20px;
+    align-items: flex-start; /* Evita centrar verticalmente en pantallas pequeñas */
+  }
+
+  .container {
+    margin: 20px auto;
+    padding: 16px;
+  }
 }

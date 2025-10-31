@@ -1,13 +1,29 @@
-/* ----- Layout general ----- */
-.layout {
-  display: flex;
-  min-height: 100vh;
-  font-family: "Segoe UI", sans-serif;
-  background-color: #f3f5f8;
+/* ============================================
+   🌐 ESTILOS GLOBALES
+============================================ */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #f5f7fa;
   color: #333;
 }
 
-/* ----- Sidebar ----- */
+* {
+  box-sizing: border-box;
+}
+
+/* ============================================
+   🧱 LAYOUT GENERAL
+============================================ */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f3f5f8;
+}
+
+/* ============================================
+   📚 SIDEBAR
+============================================ */
 .sidebar {
   width: 240px;
   background-color: #0d6efd;
@@ -16,7 +32,7 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 20px;
-  position: fixed;
+  position: fixed; /* Mantiene sidebar fijo */
   top: 0;
   left: 0;
   bottom: 0;
@@ -56,72 +72,30 @@
   font-weight: bold;
 }
 
-/* ----- Contenido principal ----- */
+/* ============================================
+   🧩 CONTENIDO PRINCIPAL
+============================================ */
 .main-content {
-  margin-left: 240px; /* espacio para el sidebar */
+  margin-left: 240px; /* deja espacio para sidebar */
   flex: 1;
   padding: 40px;
   background-color: #f9fafc;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-/* tabla y responsive */
-.table-responsive {
-  overflow-x: auto;
-  margin-top: 8px;
-}
-
-.table {
+/* El contenedor principal dentro del main */
+.main-content > * {
   width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.table th, .table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
-  vertical-align: middle;
-  font-size: 14px;
-  color: #333;
-}
-
-.table th {
-  background-color: #0d6efd;
-  color: #fff;
-  font-weight: 600;
-}
-
-/* botones de acciones */
-.action-btn {
-  border: none;
-  padding: 6px 10px;
-  margin-left: 6px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: transform .08s ease, opacity .12s ease;
-}
-
-.action-btn:hover { transform: translateY(-1px); }
-
-.action-btn.edit {
-  background: #198754; /* verde */
-  color: #fff;
-}
-
-.action-btn.delete {
-  background: #dc3545; /* rojo */
-  color: #fff;
-}
-
-/* pequeño ajuste mobile */
-@media (max-width: 600px) {
-  .table th, .table td { padding: 8px; font-size: 13px; }
-  .action-btn { padding: 5px 8px; font-size: 12px; }
-}
-
+/* ============================================
+   🧾 CONTENEDOR Y SECCIONES
+============================================ */
 .main-container {
   padding: 20px;
   position: relative;
@@ -148,13 +122,100 @@
   background-color: #0056b3;
 }
 
+/* ============================================
+   🧮 TABLAS
+============================================ */
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+}
+
+.table th {
+  background-color: #0d6efd;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ============================================
+   ⚙️ BOTONES Y ACCIONES
+============================================ */
+button,
+.action-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.1s ease, opacity 0.12s ease, background 0.2s ease;
+}
+
+button:hover,
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Botones específicos */
+.action-btn.edit {
+  background: #198754; /* verde */
+  color: #fff;
+}
+
+.action-btn.delete {
+  background: #dc3545; /* rojo */
+  color: #fff;
+}
+
+button {
+  background-color: #1976d2;
+  color: white;
+}
+
+button:hover {
+  background-color: #125ca1;
+}
+
+/* ============================================
+   🧠 FORMULARIOS Y MODALES
+============================================ */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+input,
+textarea {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+}
+
 .form-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -165,7 +226,7 @@
   padding: 20px;
   border-radius: 8px;
   width: 450px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 
 .form-header {
@@ -187,3 +248,33 @@
   color: #000;
 }
 
+/* ============================================
+   📱 RESPONSIVIDAD
+============================================ */
+@media (max-width: 900px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .action-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}

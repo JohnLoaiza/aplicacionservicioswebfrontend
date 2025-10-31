@@ -6,11 +6,11 @@ import CrudForm from "../components/CrudForm";
 type CompleteCrudProps<T> = {
   table: string;
   initialItem: T;
-  onEdit?: (item: T) => void;
+  Editcomponent?: (item: T) => JSX.Element;
   createComponent?: JSX.Element
 };
 
-export default function CompleteCrud<T>({ table, initialItem, onEdit, createComponent }: CompleteCrudProps<T>) {
+export default function CompleteCrud<T>({ table, initialItem, Editcomponent, createComponent }: CompleteCrudProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [item, setItem] = useState<T>(initialItem);
   const [editId, setEditId] = useState<number | null>(null);
@@ -37,13 +37,9 @@ export default function CompleteCrud<T>({ table, initialItem, onEdit, createComp
 
   const handleEdit = (row: T) => {
 
-    if (typeof onEdit === "function") {
-      onEdit(row)
-    } else {
       setEditId((row as any).id);
       setItem(row);
       setShowForm(true);
-    }
   };
 
   const handleDelete = async (id: number) => {
@@ -57,7 +53,7 @@ export default function CompleteCrud<T>({ table, initialItem, onEdit, createComp
   };
 
   return (
-    <>{showForm && createComponent ? createComponent : <div className="main-container">
+    <>{showForm && createComponent && item == initialItem ? createComponent : showForm && Editcomponent && item != initialItem ? Editcomponent(item): <div className="main-container">
       <div className="header-section">
         <h2>Gestión de {table}'s</h2>
         <button className="btn-add" onClick={() => setShowForm(true)}>
