@@ -149,7 +149,7 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
         <div style={styles.card}> 
         { proyecto.idproyectopadre && <h2 style={styles.title}>Proyecto padre</h2>}
           {proyecto.idproyectopadre && <ObjectDetail<Proyecto> id={proyecto.idproyectopadre} table="proyecto" initialItem={proyecto} nonEditableColumns={["idproyectopadre", "idresponsable", "idtipoproyecto", "fechainicio"]} ></ObjectDetail>}
-<h2 style={styles.title}>Micro proyectos</h2>
+          <h2 style={styles.title}>Micro proyectos</h2>
           {<CompleteCrud<Proyecto>
             table="proyecto"
             initialItem={proyecto}
