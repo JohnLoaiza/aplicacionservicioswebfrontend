@@ -1,10 +1,13 @@
 export const AppRoutes = {
-  Dashboard: "/",
+  Login: "/login",
+  Register: "/register",
+  Dashboard: "/dashboard",
   Proyecto: "/proyecto",
   TipoProyecto: "/tipo-proyecto",
   TipoResponsable: "/tipo-responsable",
   Estado: "/estado",
   Usuarios: "/usuarios",
+  Roles: "/roles",
   TransformacionInstitucional: "/transformacion-institucional",
 } as const;
 

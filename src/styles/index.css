@@ -110,6 +110,14 @@ nav a:hover {
   width: 100%;
 }
 
+.center-content {
+  display: flex;
+  justify-content: center;  /* Centra horizontal */
+  align-items: center;      /* Centra vertical */
+  height: 100vh;            /* Ocupa toda la pantalla */
+  width: 80%;
+}
+
 /* ==========================
    🧾 FORMULARIOS
 ========================== */

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:7256"; // 🔧 Ajusta según tu backend real
+export const API_URL = "https://localhost:7256"; // 🔧 Ajusta según tu backend real
 
 // 🔹 Obtener todos los registros de una tabla
 export async function fetchAll(table: string) {
@@ -40,7 +40,7 @@ export async function getItem(table: string, id: number) {
   }
 }
 
-export async function getItemByColumn(table: string, column: string, id: number) {
+export async function getItemByColumn(table: string, column: string, id: string) {
   try {
     const response = await axios.get(`${API_URL}/api/${table}/${column}/${id}?esquema=public`);
     return response.data;

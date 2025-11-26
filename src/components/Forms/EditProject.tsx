@@ -75,10 +75,10 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
        // const proyecto = proyectoRes.datos;
 
         // Obtener relaciones
-        const padreRes = proyecto.idproyectopadre != null ? await api.getItemByColumn("proyecto", "idproyectopadre", proyecto.idproyectopadre) : null;
-        const hijosRes = await api.getItemByColumn("proyecto", "idproyectopadre", proyecto.id) ?? "";
-        const presupuestoRes = await api.getItemByColumn("presupuesto", "idproyecto", proyecto.id) ?? "";
-        const metaProyectoRes = await api.getItemByColumn("meta_proyecto", "idproyecto", proyecto.id) ?? "";
+        const padreRes = proyecto.idproyectopadre != null ? await api.getItemByColumn("proyecto", "idproyectopadre", proyecto.idproyectopadre.toString()) : null;
+        const hijosRes = await api.getItemByColumn("proyecto", "idproyectopadre", proyecto.id.toString()) ?? "";
+        const presupuestoRes = await api.getItemByColumn("presupuesto", "idproyecto", proyecto.id.toString()) ?? "";
+        const metaProyectoRes = await api.getItemByColumn("meta_proyecto", "idproyecto", proyecto.id.toString()) ?? "";
 
         const presupuesto = presupuestoRes.datos[0] as Presupuesto;
 

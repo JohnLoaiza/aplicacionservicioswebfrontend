@@ -11,6 +11,6 @@ import type { Usuario } from "../types/models";
   };
 
 export default function Persona() {
-  return <CompleteCrud<Usuario> table="usuarios" initialItem={initialPersona}></CompleteCrud>
+  return <CompleteCrud<Usuario> table="usuario" initialItem={initialPersona}></CompleteCrud>
 }
 
