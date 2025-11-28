@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import type { Entregable, MetaEstrategica, MetaProyecto, ObjetivoEstrategico, Presupuesto, Producto, Proyecto } from "../../types/models";
 import * as api from "../../services/api";
 import ObjectDetail from "../ObjectDetail";
-import CrudTable from "../CrudTable";
 import CompleteCrud from "../CompleteCrud";
 import ProyectoForm from "./CreateProyectForm";
 
@@ -64,7 +63,6 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
 
   const [metaProyecto, setMetaProyecto] = useState<MetaProyecto>();
   const [metaEstrategica, setMetaEstrategica] = useState<MetaEstrategica>();
-  const [proyectoPadre, setProyectoPadre] = useState<Proyecto>();
 
 
   useEffect(() => {
@@ -75,18 +73,11 @@ const EditProject = ({ proyecto }: EditProjectProps) => {
        // const proyecto = proyectoRes.datos;
 
         // Obtener relaciones
-        const padreRes = proyecto.idproyectopadre != null ? await api.getItemByColumn("proyecto", "idproyectopadre", proyecto.idproyectopadre.toString()) : null;
-        const hijosRes = await api.getItemByColumn("proyecto", "idproyectopadre", proyecto.id.toString()) ?? "";
-        const presupuestoRes = await api.getItemByColumn("presupuesto", "idproyecto", proyecto.id.toString()) ?? "";
         const metaProyectoRes = await api.getItemByColumn("meta_proyecto", "idproyecto", proyecto.id.toString()) ?? "";
-
-        const presupuesto = presupuestoRes.datos[0] as Presupuesto;
 
         console.log("proyecto recibido:", proyecto);
         console.log("tiene idResponsable?", "idResponsable" in proyecto);
         console.log("tiene idresponsable?", "idresponsable" in proyecto);
-        
-        const responsableRes = await api.getItem("usuario", proyecto.idresponsable) ?? "";
         
         var meta = metaProyectoRes.datos[0] as MetaProyecto
 

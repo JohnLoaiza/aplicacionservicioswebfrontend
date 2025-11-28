@@ -9,7 +9,7 @@ import { AppRoutes } from "./routes";
 import Proyecto from "../pages/Proyecto";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import { fetchAll, getItem, getItemByColumn } from "../services/api";
+import { fetchAll, getItemByColumn } from "../services/api";
 import { useEffect, useState, type JSX } from "react";
 import Roles from "../pages/Roles";
 

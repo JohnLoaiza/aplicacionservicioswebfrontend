@@ -4,7 +4,7 @@ import * as api from "../services/api";
 export default function Roles() {
   const [routes, setRoutes] = useState<any[]>([]);
   const [roles, setRoles] = useState<any[]>([]);
-  const [roleRoutes, setRoleRoutes] = useState<any[]>([]);
+  const [_, setRoleRoutes] = useState<any[]>([]);
   const [selectedRole, setSelectedRole] = useState<any | null>(null);
 
   useEffect(() => {
@@ -121,11 +121,11 @@ interface RoleInfoProps {
 
                     if (checked) {
                         var newRoleRoute = {role: role.id, routeid: r.id}
-                        var created = await api.createItem("roleroutes", newRoleRoute)
+                        await api.createItem("roleroutes", newRoleRoute)
                         setRoleRoutes(prev => [...prev, newRoleRoute]);
 
                     } else {
-                        const deleted = await api.deleteItem("roleroutes", roleRoutes.find((rr: any) => rr.routeid === r.id).id);
+                         await api.deleteItem("roleroutes", roleRoutes.find((rr: any) => rr.routeid === r.id).id);
                         setRoleRoutes(prev => prev.filter(roleRoute => roleRoute.routeid !== r.id));
                     }
 

@@ -63,7 +63,7 @@ const ProyectoForm = ({filter} : ProyectoFormProps) => {
 
   const [proyectos, setProyectos] = useState<SelectOption[]>([]);
   const [tiposProyecto, setTiposProyecto] = useState<SelectOption[]>([]);
-  const [presupuestos, setPresupuestos] = useState<SelectOption[]>([]);
+  const [_, setPresupuestos] = useState<SelectOption[]>([]);
   const [usuarios, setUsuarios] = useState<SelectOption[]>([]);
   const [tipoResponsables, setTipoResponsables] = useState<SelectOption[]>([]);
 

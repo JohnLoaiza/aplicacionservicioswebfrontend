@@ -1,11 +1,19 @@
 import axios from "axios";
 
-export const API_URL = "https://localhost:7256"; // 🔧 Ajusta según tu backend real
+export const API_URL = "https://localhost:7256"; // Ajusta según tu backend real
+
+// Obtener token almacenado en sessionStorage
+const getToken = () => sessionStorage.getItem("token");
 
 // 🔹 Obtener todos los registros de una tabla
 export async function fetchAll(table: string) {
   try {
-    const response = await axios.get(`${API_URL}/api/${table}?esquema=public`);
+    const response = await axios.get(
+      `${API_URL}/api/${table}?esquema=public`,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(`Error al obtener datos de ${table}:`, error);
@@ -16,13 +24,17 @@ export async function fetchAll(table: string) {
 // 🔹 Crear un nuevo registro
 export async function createItem(table: string, data: any) {
   try {
-    // Clonamos el objeto para no modificar el original
     const cleanData = { ...data };
-
-    // Eliminamos el campo id si existe
     delete cleanData.id;
 
-    const response = await axios.post(`${API_URL}/api/${table}`, cleanData);
+    const response = await axios.post(
+      `${API_URL}/api/${table}`,
+      cleanData,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      }
+    );
+
     return response.data;
   } catch (error) {
     console.error(`Error al crear en ${table}:`, error);
@@ -32,20 +44,30 @@ export async function createItem(table: string, data: any) {
 
 export async function getItem(table: string, id: number) {
   try {
-    const response = await axios.get(`${API_URL}/api/${table}/id/${id}?esquema=public`);
+    const response = await axios.get(
+      `${API_URL}/api/${table}/id/${id}?esquema=public`,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      }
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error al actualizar en ${table}:`, error);
+    console.error(`Error al obtener en ${table}:`, error);
     throw error;
   }
 }
 
 export async function getItemByColumn(table: string, column: string, id: string) {
   try {
-    const response = await axios.get(`${API_URL}/api/${table}/${column}/${id}?esquema=public`);
+    const response = await axios.get(
+      `${API_URL}/api/${table}/${column}/${id}?esquema=public`,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      }
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error al actualizar en ${table}:`, error);
+    console.error(`Error al obtener por columna en ${table}:`, error);
     return null;
   }
 }
@@ -53,7 +75,13 @@ export async function getItemByColumn(table: string, column: string, id: string)
 // 🔹 Actualizar un registro existente
 export async function updateItem(table: string, id: number, data: any) {
   try {
-    const response = await axios.put(`${API_URL}/api/${table}/id/${id}?esquema=public`, data);
+    const response = await axios.put(
+      `${API_URL}/api/${table}/id/${id}?esquema=public`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(`Error al actualizar en ${table}:`, error);
@@ -64,7 +92,12 @@ export async function updateItem(table: string, id: number, data: any) {
 // 🔹 Eliminar un registro
 export async function deleteItem(table: string, valorClave: any) {
   try {
-    const response = await axios.delete(`${API_URL}/api/${table}/id/${valorClave}?esquema=public`);
+    const response = await axios.delete(
+      `${API_URL}/api/${table}/id/${valorClave}?esquema=public`,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(`Error al eliminar en ${table}:`, error);
